@@ -9,389 +9,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>App de Reservas de Gimnasio</title>
-    <style>
-        /* Estilo general para la app */
-        body {
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-        }
-
-        /* Header */
-        header {
-            background-color: #1a73e8;
-            padding: 20px;
-            color: white;
-            text-align: center;
-            font-size: 24px;
-            font-weight: bold;
-        }
-
-        /* Contenedor principal */
-        .container {
-            display: flex;
-            flex-direction: column;
-            padding: 20px;
-        }
-
-        /* Botones de acción */
-        button {
-            background-color: #4caf50;
-            color: white;
-            border: none;
-            padding: 15px;
-            margin: 10px 0;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        button:hover {
-            background-color: #45a049;
-        }
-
-        /* Card para mostrar clases disponibles */
-        .card {
-            background-color: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            margin-bottom: 15px;
-        }
-
-        .card h3 {
-            font-size: 20px;
-            margin-bottom: 10px;
-        }
-
-        .card p {
-            color: #555;
-        }
-
-        .card button {
-            background-color: #ff9800;
-            padding: 10px;
-            width: 100%;
-        }
-
-        /* Pantalla de entrenadores */
-        .trainers-screen {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
-
-        .trainer-card {
-            background-color: white;
-            padding: 15px;
-            border-radius: 10px;
-            width: 200px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            text-align: center;
-        }
-
-        .trainer-card img {
-            width: 100%;
-            border-radius: 8px;
-        }
-
-        .trainer-card h4 {
-            font-size: 18px;
-            margin-top: 10px;
-        }
-
-        .trainer-card p {
-            color: #777;
-        }
-
-        .trainer-card button {
-            background-color: #4caf50;
-            padding: 10px;
-            border-radius: 8px;
-            width: 100%;
-            margin-top: 10px;
-            color: white;
-            cursor: pointer;
-        }
-
-        .trainer-card button:hover {
-            background-color: #45a049;
-        }
-
-        /* Pantalla de progreso */
-        .progress-screen {
-            background-color: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        .progress-screen h2 {
-            font-size: 24px;
-            text-align: center;
-        }
-
-        .progress-item {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 10px;
-        }
-
-        .progress-item span {
-            font-size: 18px;
-        }
-
-        .progress-item .progress-bar {
-            width: 60%;
-            height: 8px;
-            background-color: #ddd;
-            border-radius: 5px;
-            margin-left: 10px;
-            position: relative;
-        }
-
-        .progress-item .progress-bar .filled {
-            background-color: #1a73e8;
-            height: 100%;
-            border-radius: 5px;
-        }
-
-        /* Pantalla de notificaciones */
-        .notifications-screen {
-            background-color: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        .notifications-screen h2 {
-            font-size: 24px;
-            text-align: center;
-        }
-
-        .notification-card {
-            display: flex;
-            justify-content: space-between;
-            padding: 10px;
-            margin-bottom: 15px;
-            background-color: #f9f9f9;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        .notification-card p {
-            font-size: 16px;
-            color: #333;
-        }
-
-        .notification-card .date {
-            font-size: 14px;
-            color: #777;
-        }
-
-        /* Pantalla de pagos */
-        .payment-screen {
-            display: none;
-            background-color: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        .payment-card {
-            background-color: white;
-            padding: 15px;
-            margin-bottom: 10px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        .payment-card h4 {
-            font-size: 20px;
-            margin-bottom: 10px;
-        }
-
-        .payment-card button {
-            background-color: #ff9800;
-            color: white;
-            padding: 10px;
-            width: 100%;
-            border-radius: 8px;
-        }
-    </style>
+    <title>Reserva de Gimnasio</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header>Gimnasio Fitness App</header>
-    
     <div class="container">
-        <div class="card">
-            <h3>Clases Disponibles</h3>
-            <p>Reserva tu clase de Boxeo y recibe recordatorios.</p>
-            <button onclick="showReservationScreen()">Reservar Clase</button>
+        <!-- Pantalla de bienvenida -->
+        <div id="home-screen" class="screen active">
+            <h1>Bienvenido a GymReserve</h1>
+            <button class="btn" onclick="goToScreen('reservation-screen')">Reservar Clase</button>
+            <button class="btn" onclick="goToScreen('trainers-screen')">Entrenadores</button>
+            <button class="btn" onclick="goToScreen('progress-screen')">Ver Progreso</button>
         </div>
 
-        <div class="card">
-            <h3>Entrenadores Disponibles</h3>
-            <p>Consulta la disponibilidad de nuestros entrenadores para sesiones personalizadas.</p>
-            <button onclick="showTrainersScreen()">Ver Entrenadores</button>
+        <!-- Pantalla de reservas -->
+        <div id="reservation-screen" class="screen">
+            <h2>Reservar Clase</h2>
+            <select id="trainer-select">
+                <option value="boxing">Boxeo</option>
+                <option value="fitness">Fitness</option>
+            </select>
+            <input type="datetime-local" id="reservation-time">
+            <button class="btn" onclick="confirmReservation()">Confirmar Reserva</button>
+            <button class="btn" onclick="goToScreen('home-screen')">Volver al Inicio</button>
         </div>
 
-        <div class="card">
-            <h3>Progreso</h3>
-            <p>Consulta tus métricas y logros alcanzados.</p>
-            <button onclick="showProgressScreen()">Ver Progreso</button>
+        <!-- Pantalla de entrenadores -->
+        <div id="trainers-screen" class="screen">
+            <h2>Entrenadores Disponibles</h2>
+            <ul id="trainers-list">
+                <!-- Entrenadores se cargarán aquí dinámicamente -->
+            </ul>
+            <button class="btn" onclick="goToScreen('home-screen')">Volver al Inicio</button>
         </div>
 
-        <div class="card">
-            <h3>Notificaciones</h3>
-            <p>Recibe notificaciones sobre tus reservas y sesiones.</p>
-            <button onclick="showNotificationsScreen()">Ver Notificaciones</button>
-        </div>
-
-        <div class="card">
-            <h3>Planes de Pago</h3>
-            <p>Consulta los planes de pago y promociones disponibles.</p>
-            <button onclick="showPaymentScreen()">Ver Planes</button>
-        </div>
-    </div>
-
-    <!-- Pantalla de pagos -->
-    <div class="payment-screen">
-        <h2>Planes de Pago</h2>
-        <div class="payment-card">
-            <h4>Plan Mensual</h4>
-            <p>Accede a todas las clases grupales durante un mes.</p>
-            <p>Precio: $30.000</p>
-            <button onclick="applyDiscount(30000, 'Mensual')">Aplicar Promoción</button>
-        </div>
-        <div class="payment-card">
-            <h4>Plan Anual</h4>
-            <p>Accede a todas las clases durante un año con un descuento especial.</p>
-            <p>Precio: $320.000</p>
-            <button onclick="applyDiscount(320000, 'Anual')">Aplicar Promoción</button>
-        </div>
-        <div class="payment-card">
-            <h4>Clase Individual</h4>
-            <p>Accede a una clase grupal de tu elección.</p>
-            <p>Precio: $15.000</p>
-            <button onclick="applyDiscount(15000, 'Individual')">Aplicar Promoción</button>
+        <!-- Pantalla de progreso -->
+        <div id="progress-screen" class="screen">
+            <h2>Progreso</h2>
+            <p id="progress-message">¡Sigue entrenando para ver tu progreso!</p>
+            <p>Ejercicios realizados: <span id="exercises-completed">0</span></p>
+            <button class="btn" onclick="completeTask()">Marcar tarea como completada</button>
+            <p>Logros alcanzados:</p>
+            <ul id="achievements-list">
+                <!-- Logros se cargarán aquí dinámicamente -->
+            </ul>
+            <button class="btn" onclick="goToScreen('home-screen')">Volver al Inicio</button>
         </div>
     </div>
 
-    <!-- Pantalla de entrenadores -->
-    <div class="trainers-screen" style="display:none;">
-        <div class="trainer-card">
-            <img src="https://media.licdn.com/dms/image/v2/D4E03AQGfUfd74tVN2A/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1726776978119?e=2147483647&v=beta&t=4v_qqlm4gWKNGquaMpb4qSJvEaEOqLyOPAN0XfdtbaM" alt="Ashton Hall">
-            <h4>Ashton Hall</h4>
-            <p>Entrenador especializado en Fitness</p>
-            <button onclick="reserveTrainer('Ashton Hall', 'Fitness', 50000, '10:00 AM')">Reservar</button>
-        </div>
-        <div class="trainer-card">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/4/42/The_ROCK.jpg" alt="The Rock">
-            <h4>The Rock</h4>
-            <p>Entrenador de Boxeo</p>
-            <button onclick="reserveTrainer('The Rock', 'Boxeo', 60000, '12:00 PM')">Reservar</button>
-        </div>
-    </div>
-
-    <!-- Pantalla de progreso -->
-    <div class="progress-screen" style="display:none;">
-        <h2>Tu Progreso</h2>
-        <div class="progress-item">
-            <span>Clases completadas</span>
-            <div class="progress-bar">
-                <div class="filled" style="width: 60%;"></div>
-            </div>
-        </div>
-        <div class="progress-item">
-            <span>Calorías quemadas</span>
-            <div class="progress-bar">
-                <div class="filled" style="width: 80%;"></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Pantalla de notificaciones -->
-    <div class="notifications-screen" style="display:none;">
-        <h2>Notificaciones</h2>
-        <div class="notification-card">
-            <p>Tu clase de Boxeo está confirmada para mañana.</p>
-            <span class="date">10/04/2025</span>
-        </div>
-        <div class="notification-card">
-            <p>Tu entrenador está disponible para una sesión el jueves.</p>
-            <span class="date">12/04/2025</span>
-        </div>
-    </div>
-
-    <script>
-        // Funciones para mostrar las pantallas correspondientes
-        function showReservationScreen() {
-            hideAllScreens();
-            document.querySelector('.reservation-screen').style.display = 'block';
-        }
-
-        function showTrainersScreen() {
-            hideAllScreens();
-            document.querySelector('.trainers-screen').style.display = 'flex';
-        }
-
-        function showProgressScreen() {
-            hideAllScreens();
-            document.querySelector('.progress-screen').style.display = 'block';
-        }
-
-        function showNotificationsScreen() {
-            hideAllScreens();
-            document.querySelector('.notifications-screen').style.display = 'block';
-        }
-
-        function showPaymentScreen() {
-            hideAllScreens();
-            document.querySelector('.payment-screen').style.display = 'block';
-        }
-
-        function hideAllScreens() {
-            document.querySelector('.trainers-screen').style.display = 'none';
-            document.querySelector('.progress-screen').style.display = 'none';
-            document.querySelector('.notifications-screen').style.display = 'none';
-            document.querySelector('.payment-screen').style.display = 'none';
-        }
-
-        // Función para realizar una reserva de clase con entrenador
-        function reserveTrainer(trainerName, classType, price, time) {
-            const date = new Date().toLocaleDateString();
-            const notificationMessage = `Clase de ${classType} con ${trainerName} agendada para el ${date} a las ${time}. Precio: $${price.toLocaleString('es-CO')}`;
-            
-            // Mostrar la notificación en la pantalla
-            const notificationDiv = document.createElement('div');
-            notificationDiv.classList.add('notification-card');
-            notificationDiv.innerHTML = ` 
-                <p>${notificationMessage}</p>
-                <span class="date">${date}</span>
-            `;
-            document.querySelector('.notifications-screen').appendChild(notificationDiv);
-
-            alert(`Reserva confirmada: ${trainerName} para ${classType} a las ${time}. Precio: $${price.toLocaleString('es-CO')}`);
-        }
-
-        // Función para aplicar promociones en los planes
-        function applyDiscount(price, planType) {
-            let discount = 0;
-            if (planType === 'Mensual') {
-                discount = 5000; // Promoción para plan mensual
-            } else if (planType === 'Anual') {
-                discount = 20000; // Promoción para plan anual
-            } else if (planType === 'Individual') {
-                discount = 3000; // Descuento para clase individual
-            }
-
-            const finalPrice = price - discount;
-            alert(`¡Promoción aplicada! Precio final: $${finalPrice.toLocaleString('es-CO')}`);
-        }
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
 
